@@ -30,4 +30,11 @@ end
 Capybara.javascript_driver = :browserstack
 
 RSpec.configure do |config|
+  config.before(:each) do |example|
+    Capybara.current_session.driver.options[:desired_capabilities]['name'] = example.full_description
+  end
+
+  config.after :each do
+    Capybara.current_session.driver.quit
+  end
 end
